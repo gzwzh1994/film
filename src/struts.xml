@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	
+	<package name="zy" namespace="/qiantai" extends="struts-default">
+	   <action name="*_*" class="com.bysj.action.{1}Action" method="{2}">
+	       <result name="success">/qiantai/user/success.jsp</result>
+	       <result name="success1">/qiantai/a.jsp</result>
+	       <result name="error">/qiantai/user/{2}.jsp</result>
+	       <result name="test">/qiantai/moive/detail.jsp</result>
+	       <result name="index">/qiantai/index.jsp</result>
+	       <result name="ok">/qiantai/user/userInfo.jsp</result>
+	       <result name="ticket">/qiantai/buy/buyinfo.jsp</result>
+	   </action>
+	   <action name="authCode" class="com.bysj.action.AuthCodeAction" method="execute">  
+       </action>
+	</package>
+	
+	<package name="ht" namespace="/houtai" extends="struts-default">
+	   <action name="*_*" class="com.bysj.action.{1}Action" method="{2}">
+		   <result name="index">/houtai/index.jsp</result>
+		   <result name="signin">/houtai/signin.jsp</result>
+		   <result name="success">/houtai/{1}_{2}.jsp</result>
+		   <result name="success1">/houtai/{1}_update.jsp</result>
+		   <result name="ok" type="redirectAction">{1}_manage</result>
+		   
+		   <interceptor-ref name="fileUpload">
+				<param name="maximumSize">10*1024*1024</param> <!-- 上传文件的最大限度 -->
+				<param name="allowedTypes">
+					image/bmp,image/x-png,image/png,image/gif,image/jpeg,image/jpg,image/pjpeg
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>		   
+	   </action>
+    </package>
+	
+</struts> 
