@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.bysj.model.Cinema;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 public interface CinemaManager {
 	public void addCinema(Cinema cinema) throws Exception;
 
@@ -12,6 +17,8 @@ public interface CinemaManager {
 	public void updateCinema(Cinema cinema) throws Exception;
 
 	public List<Cinema> findAllList(String hql);
-	public List<Cinema> findCinemaBy(String hql,List<Object> param);
-	public Cinema findCinema(String hql,Object[] param);
+
+	public List<Cinema> findCinemaBy(String hql, List<Object> param);
+
+	public Cinema findCinema(String hql, Object[] param);
 }

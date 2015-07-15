@@ -11,9 +11,15 @@ import org.springframework.stereotype.Component;
 
 import com.bysj.dao.ImageDao;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("imageDao")
 public class ImageDaoImpl<T> implements ImageDao<T> {
 	private SessionFactory sessionFactory;
+
 	@Override
 	public void save(T o) {
 		this.getCurrentSession().save(o);
@@ -54,7 +60,7 @@ public class ImageDaoImpl<T> implements ImageDao<T> {
 			return null;
 		}
 	}
-	
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

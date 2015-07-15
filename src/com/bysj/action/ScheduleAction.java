@@ -38,6 +38,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("scheduleAction")
 @Scope("prototype")
 public class ScheduleAction extends ActionSupport {
@@ -53,8 +58,8 @@ public class ScheduleAction extends ActionSupport {
 	private Schedule schedule;
 	private Hall hall;
 	private Cinema cinema;
-	
-	//获取放映日期选项
+
+	// 获取放映日期选项
 	public void showDate() throws Exception {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		List<Schedule> l = scheduleManager
@@ -71,8 +76,8 @@ public class ScheduleAction extends ActionSupport {
 		out.close();
 		System.out.println(jsonArray);
 	}
-	
-	//获取影城选项
+
+	// 获取影城选项
 	public void getCinemas() throws ParseException, Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -92,8 +97,8 @@ public class ScheduleAction extends ActionSupport {
 		out.close();
 		System.out.println(jsonArray);
 	}
-	
-	//获取影片选项
+
+	// 获取影片选项
 	public void getHotFilms() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -127,8 +132,8 @@ public class ScheduleAction extends ActionSupport {
 		out.close();
 		System.out.println(jsonArray);
 	}
-	
-	//获取电影排期
+
+	// 获取电影排期
 	public void getShowTimes() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -309,16 +314,20 @@ public class ScheduleAction extends ActionSupport {
 		out.close();
 		System.out.println(jsonArray);
 	}
-	//获取排期影片信息
-	public void GetShowFilm() throws IOException{
+
+	// 获取排期影片信息
+	public void GetShowFilm() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
-		String scheduleNO=request.getParameter("seqNo");
-		Integer scheduleid=Integer.parseInt(scheduleNO);
+		String scheduleNO = request.getParameter("seqNo");
+		Integer scheduleid = Integer.parseInt(scheduleNO);
 		Object[] param = new Object[] { scheduleid };
-		List<MoiveInfo> l=scheduleManager.findScheduleBy("select new com.bysj.vo.MoiveInfo2(m.moiveid,m.moivename,i.imageadr,m.totaltime,s.showdate,s.showtime,s.versionid,m.language,c.cinemaid,c.cinemaname,h.hallname,s.price) from Schedule s,Moive m,Hall h,Cinema c,Image i where s.scheduleid=? and s.moiveid=m.moiveid and m.moiveid=i.moiveid and s.hallid=h.hallid and h.cinemaid=c.cinemaid and i.imagename='FilmPic' ", param);
-		Gson gs = new Gson();		
-		String jsonArray =gs.toJson(l.get(0));
+		List<MoiveInfo> l = scheduleManager
+				.findScheduleBy(
+						"select new com.bysj.vo.MoiveInfo2(m.moiveid,m.moivename,i.imageadr,m.totaltime,s.showdate,s.showtime,s.versionid,m.language,c.cinemaid,c.cinemaname,h.hallname,s.price) from Schedule s,Moive m,Hall h,Cinema c,Image i where s.scheduleid=? and s.moiveid=m.moiveid and m.moiveid=i.moiveid and s.hallid=h.hallid and h.cinemaid=c.cinemaid and i.imagename='FilmPic' ",
+						param);
+		Gson gs = new Gson();
+		String jsonArray = gs.toJson(l.get(0));
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(jsonArray);
@@ -326,16 +335,20 @@ public class ScheduleAction extends ActionSupport {
 		out.close();
 		System.out.println(jsonArray);
 	}
-	//选座页面更换场次
-	public void GetShowDateTimeByFilmAndCinemaNo() throws IOException{
+
+	// 选座页面更换场次
+	public void GetShowDateTimeByFilmAndCinemaNo() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
-		Integer cinemaid=Integer.parseInt(request.getParameter("cinemaNo"));
-		Integer moiveid=Integer.parseInt(request.getParameter("filmNo"));
-		Object[] param = new Object[] { cinemaid,moiveid };
-		List<MoiveInfo> l=scheduleManager.findScheduleBy("select new com.bysj.vo.MoiveInfo(s.showdate,s.showtime) from Schedule s,Hall h,Cinema c where c.cinemaid=? and s.moiveid=? and s.hallid=h.hallid and h.cinemaid=c.cinemaid ", param);
-		Gson gs = new Gson();		
-		String jsonArray =gs.toJson(l);
+		Integer cinemaid = Integer.parseInt(request.getParameter("cinemaNo"));
+		Integer moiveid = Integer.parseInt(request.getParameter("filmNo"));
+		Object[] param = new Object[] { cinemaid, moiveid };
+		List<MoiveInfo> l = scheduleManager
+				.findScheduleBy(
+						"select new com.bysj.vo.MoiveInfo(s.showdate,s.showtime) from Schedule s,Hall h,Cinema c where c.cinemaid=? and s.moiveid=? and s.hallid=h.hallid and h.cinemaid=c.cinemaid ",
+						param);
+		Gson gs = new Gson();
+		String jsonArray = gs.toJson(l);
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(jsonArray);
@@ -343,16 +356,20 @@ public class ScheduleAction extends ActionSupport {
 		out.close();
 		System.out.println(jsonArray);
 	}
-	//获得座位图集合
-	public void GetHallSeatsStatus() throws IOException{
+
+	// 获得座位图集合
+	public void GetHallSeatsStatus() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
-		String scheduleNO=request.getParameter("seqNo");
-		Integer scheduleid=Integer.parseInt(scheduleNO);
+		String scheduleNO = request.getParameter("seqNo");
+		Integer scheduleid = Integer.parseInt(scheduleNO);
 		Object[] param = new Object[] { scheduleid };
-		 hall=(Hall) scheduleManager.getScheduleBy("select h from Schedule s,Hall h where s.scheduleid=? and s.hallid=h.hallid", param);
-		String hallseat=hall.getHallseat();
-		String[] s=hallseat.split(":");
+		hall = (Hall) scheduleManager
+				.getScheduleBy(
+						"select h from Schedule s,Hall h where s.scheduleid=? and s.hallid=h.hallid",
+						param);
+		String hallseat = hall.getHallseat();
+		String[] s = hallseat.split(":");
 		List l = new ArrayList();
 		for (int i = 0; i < s.length; i++) {
 			SeatRow sr = new SeatRow();
@@ -366,26 +383,26 @@ public class ScheduleAction extends ActionSupport {
 				SeatCol sc = new SeatCol();
 				char Cno = seat.charAt(j);
 				sc.setColumnId(j + 1);
-				if (Cno == '1') {   //已售
+				if (Cno == '1') { // 已售
 					z = z + 1;
 					sc.setColumnNo(z.toString());
 					sc.setSeatType(1);
 					sc.setStatus(1);
-				} else if (Cno == '0' || Cno == '3') {  //空
+				} else if (Cno == '0' || Cno == '3') { // 空
 					sc.setColumnNo("0");
 					sc.setSeatType(3);
 					sc.setStatus(0);
-				} else if (Cno == '2') {   //可选座位
+				} else if (Cno == '2') { // 可选座位
 					z = z + 1;
 					sc.setColumnNo(z.toString());
 					sc.setSeatType(2);
 					sc.setStatus(0);
-				} else if (Cno == '4') {   //座位维修
+				} else if (Cno == '4') { // 座位维修
 					z = z + 1;
 					sc.setColumnNo(z.toString());
 					sc.setSeatType(4);
 					sc.setStatus(1);
-				} else if (Cno == '5' || Cno == '6') {   
+				} else if (Cno == '5' || Cno == '6') {
 					z = z + 1;
 					sc.setColumnNo(z.toString());
 					sc.setSeatType(5);
@@ -399,9 +416,9 @@ public class ScheduleAction extends ActionSupport {
 			}
 			sr.setRowSeats(ls);
 			l.add(sr);
-		}		
-		Gson gs = new Gson();		
-		String jsonArray =gs.toJson(l);
+		}
+		Gson gs = new Gson();
+		String jsonArray = gs.toJson(l);
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(jsonArray);
@@ -409,14 +426,15 @@ public class ScheduleAction extends ActionSupport {
 		out.close();
 		System.out.println(jsonArray);
 	}
-	
-	public String manage(){
+
+	public String manage() {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		List<Cinema> cinemalist=cinemaManager.findAllList("from Cinema");
-		List<Hall> halllist=hallManager.findAllList("from Hall");
-		List<Version> versionlist=versionManager.findAllList();
-		List<Schedule> schedulelist=scheduleManager.findAllList("from Schedule");
-		List<Moive> moivelist=moiveManager.findAllList();
+		List<Cinema> cinemalist = cinemaManager.findAllList("from Cinema");
+		List<Hall> halllist = hallManager.findAllList("from Hall");
+		List<Version> versionlist = versionManager.findAllList();
+		List<Schedule> schedulelist = scheduleManager
+				.findAllList("from Schedule");
+		List<Moive> moivelist = moiveManager.findAllList();
 		request.setAttribute("cinemalist", cinemalist);
 		request.setAttribute("halllist", halllist);
 		request.setAttribute("versionlist", versionlist);
@@ -424,70 +442,80 @@ public class ScheduleAction extends ActionSupport {
 		request.setAttribute("moivelist", moivelist);
 		return SUCCESS;
 	}
-	
-	public String add() throws Exception{
+
+	public String add() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String showdate=request.getParameter("showdate");
-		if(showdate==null || showdate==""){
-			List<Cinema> cinemalist=cinemaManager.findAllList("from Cinema");
-			List<Hall> halllist=hallManager.findAllList("from Hall");
-			List<Version> versionlist=versionManager.findAllList();
-			List<Moive> moivelist=moiveManager.findAllList();
+		String showdate = request.getParameter("showdate");
+		if (showdate == null || showdate == "") {
+			List<Cinema> cinemalist = cinemaManager.findAllList("from Cinema");
+			List<Hall> halllist = hallManager.findAllList("from Hall");
+			List<Version> versionlist = versionManager.findAllList();
+			List<Moive> moivelist = moiveManager.findAllList();
 			request.setAttribute("cinemalist", cinemalist);
 			request.setAttribute("versionlist", versionlist);
 			request.setAttribute("moivelist", moivelist);
-			Gson gs = new Gson();		
-			String jsonArray =gs.toJson(halllist);
+			Gson gs = new Gson();
+			String jsonArray = gs.toJson(halllist);
 			request.setAttribute("jsonArray", jsonArray);
-		}else{
-			Schedule s=null;
-			String time=request.getParameter("showtime");
+		} else {
+			Schedule s = null;
+			String time = request.getParameter("showtime");
 			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 			java.util.Date d = null;
 			try {
-				d=sdf.parse(time);
+				d = sdf.parse(time);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 			Time showtime = new Time(d.getTime());
-			Object[] param={Date.valueOf(showdate),showtime,Integer.parseInt(request.getParameter("hallid"))};
-			s=(Schedule) scheduleManager.getScheduleBy("from Schedule s where s.showdate=? and s.showtime=? and s.hallid=?", param);
-			if(null==s){
-				schedule=new Schedule();
+			Object[] param = { Date.valueOf(showdate), showtime,
+					Integer.parseInt(request.getParameter("hallid")) };
+			s = (Schedule) scheduleManager
+					.getScheduleBy(
+							"from Schedule s where s.showdate=? and s.showtime=? and s.hallid=?",
+							param);
+			if (null == s) {
+				schedule = new Schedule();
 				schedule.setShowdate(Date.valueOf(showdate));
 				schedule.setShowtime(showtime);
-				schedule.setHallid(Integer.parseInt(request.getParameter("hallid")));
-				schedule.setMoiveid(Integer.parseInt(request.getParameter("moiveid")));
-				schedule.setVersionid(Integer.parseInt(request.getParameter("versionid")));
-				schedule.setPrice(Integer.parseInt(request.getParameter("price")));
+				schedule.setHallid(Integer.parseInt(request
+						.getParameter("hallid")));
+				schedule.setMoiveid(Integer.parseInt(request
+						.getParameter("moiveid")));
+				schedule.setVersionid(Integer.parseInt(request
+						.getParameter("versionid")));
+				schedule.setPrice(Integer.parseInt(request
+						.getParameter("price")));
 				schedule.setTip(Integer.parseInt(request.getParameter("tip")));
 				scheduleManager.addSchedule(schedule);
 				request.setAttribute("tip", "添加成功");
-			}else{
-				List<Cinema> cinemalist=cinemaManager.findAllList("from Cinema");
-				List<Hall> halllist=hallManager.findAllList("from Hall");
-				List<Version> versionlist=versionManager.findAllList();
-				List<Moive> moivelist=moiveManager.findAllList();
+			} else {
+				List<Cinema> cinemalist = cinemaManager
+						.findAllList("from Cinema");
+				List<Hall> halllist = hallManager.findAllList("from Hall");
+				List<Version> versionlist = versionManager.findAllList();
+				List<Moive> moivelist = moiveManager.findAllList();
 				request.setAttribute("cinemalist", cinemalist);
 				request.setAttribute("versionlist", versionlist);
 				request.setAttribute("moivelist", moivelist);
-				Gson gs = new Gson();		
-				String jsonArray =gs.toJson(halllist);
+				Gson gs = new Gson();
+				String jsonArray = gs.toJson(halllist);
 				request.setAttribute("jsonArray", jsonArray);
 				request.setAttribute("tip", "排期已存在添加失败");
 			}
 		}
 		return SUCCESS;
 	}
-	
-	public String delete() throws Exception{
-		 HttpServletRequest request = ServletActionContext.getRequest();
-		 schedule=new Schedule();
-		 schedule.setScheduleid(Integer.parseInt(request.getParameter("scheduleid")));
-		 scheduleManager.deleteSchedule(schedule);
-		 return "ok";
+
+	public String delete() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		schedule = new Schedule();
+		schedule.setScheduleid(Integer.parseInt(request
+				.getParameter("scheduleid")));
+		scheduleManager.deleteSchedule(schedule);
+		return "ok";
 	}
-	
+
 	public ScheduleManager getScheduleManager() {
 		return scheduleManager;
 	}
@@ -542,6 +570,7 @@ public class ScheduleAction extends ActionSupport {
 	public VersionManager getVersionManager() {
 		return versionManager;
 	}
+
 	@Resource
 	public void setVersionManager(VersionManager versionManager) {
 		this.versionManager = versionManager;
@@ -558,6 +587,7 @@ public class ScheduleAction extends ActionSupport {
 	public MoiveManager getMoiveManager() {
 		return moiveManager;
 	}
+
 	@Resource
 	public void setMoiveManager(MoiveManager moiveManager) {
 		this.moiveManager = moiveManager;

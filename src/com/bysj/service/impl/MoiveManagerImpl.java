@@ -10,14 +10,19 @@ import com.bysj.dao.MoiveDao;
 import com.bysj.model.Moive;
 import com.bysj.service.MoiveManager;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("moiveManager")
 public class MoiveManagerImpl implements MoiveManager {
-	
+
 	private MoiveDao<Moive> moivedao;
 
 	@Override
 	public void addMoive(Moive moive) throws Exception {
-        moivedao.save(moive); 
+		moivedao.save(moive);
 	}
 
 	@Override
@@ -37,19 +42,20 @@ public class MoiveManagerImpl implements MoiveManager {
 
 	@Override
 	public <T> List<T> findListByDate(String hql, Object[] param) {
-		return  (List<T>) moivedao.find(hql, param);
+		return (List<T>) moivedao.find(hql, param);
 	}
 
 	@Override
 	public Moive findMoiveById(Integer moiveid) {
-		return moivedao.get(" from Moive m where m.moiveid=? ", new Object[] { moiveid });
+		return moivedao.get(" from Moive m where m.moiveid=? ",
+				new Object[] { moiveid });
 	}
-	
+
 	@Override
 	public Moive findMoive(String hql, Object[] param) {
 		return moivedao.get(hql, param);
 	}
-	
+
 	public MoiveDao<Moive> getMoivedao() {
 		return moivedao;
 	}
@@ -58,7 +64,5 @@ public class MoiveManagerImpl implements MoiveManager {
 	public void setMoivedao(MoiveDao<Moive> moivedao) {
 		this.moivedao = moivedao;
 	}
-
-	
 
 }

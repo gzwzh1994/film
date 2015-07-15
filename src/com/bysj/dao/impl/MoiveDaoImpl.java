@@ -11,10 +11,15 @@ import org.springframework.stereotype.Component;
 
 import com.bysj.dao.MoiveDao;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("moiveDao")
 public class MoiveDaoImpl<T> implements MoiveDao<T> {
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public void save(T o) {
 		this.getCurrentSession().save(o);
@@ -60,11 +65,12 @@ public class MoiveDaoImpl<T> implements MoiveDao<T> {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+
 	@Resource
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-    
+
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}

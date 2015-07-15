@@ -10,9 +10,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 import com.bysj.dao.HallDao;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("hallDao")
 public class HallDaoImpl<T> implements HallDao<T> {
 	private SessionFactory sessionFactory;
+
 	@Override
 	public void save(T o) {
 		this.getCurrentSession().save(o);
@@ -54,7 +61,7 @@ public class HallDaoImpl<T> implements HallDao<T> {
 		}
 		return q.list();
 	}
-	
+
 	@Override
 	public T get(String hql, Object[] param) {
 		List<T> l = this.find(hql, param);
@@ -64,15 +71,16 @@ public class HallDaoImpl<T> implements HallDao<T> {
 			return null;
 		}
 	}
-	
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+
 	@Resource
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-    
+
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}

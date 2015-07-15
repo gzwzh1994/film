@@ -9,9 +9,16 @@ import org.springframework.stereotype.Component;
 import com.bysj.dao.OrderDao;
 import com.bysj.model.Orders;
 import com.bysj.service.OrderManager;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("orderManager")
 public class OrderManagerImpl implements OrderManager {
 	private OrderDao<Orders> orderdao;
+
 	@Override
 	public void addOrder(Orders o) throws Exception {
 		orderdao.save(o);
@@ -51,6 +58,7 @@ public class OrderManagerImpl implements OrderManager {
 	public OrderDao<Orders> getOrderdao() {
 		return orderdao;
 	}
+
 	@Resource
 	public void setOrderdao(OrderDao<Orders> orderdao) {
 		this.orderdao = orderdao;

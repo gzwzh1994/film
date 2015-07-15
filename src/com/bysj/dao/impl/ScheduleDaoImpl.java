@@ -10,6 +10,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 import com.bysj.dao.ScheduleDao;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("scheduleDao")
 public class ScheduleDaoImpl<T> implements ScheduleDao<T> {
 	private SessionFactory sessionFactory;

@@ -4,16 +4,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
-
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Entity
 public class Hall {
 	private Integer hallid; // 影厅编号
 	private String hallname; // 影厅名
 	private Integer cinemaid; // 影院编号
 	private String hallseat; // 影厅座位
-	private Integer seatnum;//座位数量
-	
+	private Integer seatnum;// 座位数量
+
 	@Id
 	@GeneratedValue
 	public Integer getHallid() {

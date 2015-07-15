@@ -10,9 +10,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 import com.bysj.dao.OrderDao;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("orderDao")
 public class OrderDaoImpl<T> implements OrderDao<T> {
-	private SessionFactory sessionFactory; 
+	private SessionFactory sessionFactory;
+
 	@Override
 	public void save(T o) {
 		this.getCurrentSession().save(o);
@@ -20,7 +27,7 @@ public class OrderDaoImpl<T> implements OrderDao<T> {
 
 	@Override
 	public void delete(T o) {
-		this.getCurrentSession().delete(o);		
+		this.getCurrentSession().delete(o);
 	}
 
 	@Override
@@ -81,12 +88,13 @@ public class OrderDaoImpl<T> implements OrderDao<T> {
 		}
 		return q.executeUpdate();
 	}
-	
+
 	@Resource
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-    private Session getCurrentSession() {
+
+	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 

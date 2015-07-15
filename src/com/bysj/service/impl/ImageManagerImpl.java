@@ -10,6 +10,11 @@ import com.bysj.dao.ImageDao;
 import com.bysj.model.Image;
 import com.bysj.service.ImageManager;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("imageManager")
 public class ImageManagerImpl implements ImageManager {
 	private ImageDao<Image> imagedao;
@@ -37,9 +42,11 @@ public class ImageManagerImpl implements ImageManager {
 	@Override
 	public List<Image> findImageByMoiveid(Integer moiveid) {
 		// TODO Auto-generated method stub
-		return imagedao.find("from Image i where i.moiveid=? and i.imagename='FilmPicture' ", new Object[] { moiveid });
+		return imagedao
+				.find("from Image i where i.moiveid=? and i.imagename='FilmPicture' ",
+						new Object[] { moiveid });
 	}
-	
+
 	@Override
 	public Image findImage(String hql, Object[] param) {
 		return imagedao.get(hql, param);
@@ -48,9 +55,10 @@ public class ImageManagerImpl implements ImageManager {
 	public ImageDao<Image> getImagedao() {
 		return imagedao;
 	}
+
 	@Resource
 	public void setImagedao(ImageDao<Image> imagedao) {
 		this.imagedao = imagedao;
 	}
-	
+
 }

@@ -10,9 +10,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 import com.bysj.dao.VersionDao;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("versionDao")
 public class VersionDaoImpl<T> implements VersionDao<T> {
 	private SessionFactory sessionFactory;
+
 	@Override
 	public List<T> find(String hql) {
 		return this.getCurrentSession().createQuery(hql).list();
@@ -29,7 +36,6 @@ public class VersionDaoImpl<T> implements VersionDao<T> {
 		return q.list();
 	}
 
-
 	@Override
 	public T get(String hql, Object[] param) {
 		List<T> l = this.find(hql, param);
@@ -39,15 +45,16 @@ public class VersionDaoImpl<T> implements VersionDao<T> {
 			return null;
 		}
 	}
-	
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+
 	@Resource
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-    
+
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}

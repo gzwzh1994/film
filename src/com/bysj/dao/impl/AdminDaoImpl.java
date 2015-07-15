@@ -7,12 +7,20 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.bysj.dao.AdminDao;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("adminDao")
-public class AdminDaoImpl<T> implements AdminDao<T>{
-	private SessionFactory sessionFactory; 
+public class AdminDaoImpl<T> implements AdminDao<T> {
+	private SessionFactory sessionFactory;
+
 	@Override
 	public void save(T o) {
 		this.getCurrentSession().save(o);
@@ -64,14 +72,17 @@ public class AdminDaoImpl<T> implements AdminDao<T>{
 		}
 		return q.executeUpdate();
 	}
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+
 	@Resource
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-    private Session getCurrentSession() {
+
+	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 }

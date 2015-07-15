@@ -4,18 +4,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
-
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Entity
 public class Cinema {
-  private Integer cinemaid;   //电影院编号
-  private String cinemaname;  //电影院名
-  private Integer cityid;     //城市编号
-  private String address;     //地址
-  private String telephone;   //电话
-  private String routes;      //交通路线
-  private String preferentialinfo;  //优惠信息
-  
+	private Integer cinemaid; // 电影院编号
+	private String cinemaname; // 电影院名
+	private Integer cityid; // 城市编号
+	private String address; // 地址
+	private String telephone; // 电话
+	private String routes; // 交通路线
+	private String preferentialinfo; // 优惠信息
+
 	@Id
 	@GeneratedValue
 	public Integer getCinemaid() {
@@ -73,7 +76,6 @@ public class Cinema {
 	public void setPreferentialinfo(String preferentialinfo) {
 		this.preferentialinfo = preferentialinfo;
 	}
-	
 
 	public Cinema() {
 		super();
@@ -97,7 +99,5 @@ public class Cinema {
 		this.routes = routes;
 		this.preferentialinfo = preferentialinfo;
 	}
-
-	
 
 }

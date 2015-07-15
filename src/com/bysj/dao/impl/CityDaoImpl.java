@@ -10,9 +10,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 
 import com.bysj.dao.CityDao;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("cityDao")
 public class CityDaoImpl<T> implements CityDao<T> {
 	private SessionFactory sessionFactory;
+
 	@Override
 	public void save(T o) {
 		this.getCurrentSession().save(o);
@@ -53,14 +60,16 @@ public class CityDaoImpl<T> implements CityDao<T> {
 			return null;
 		}
 	}
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+
 	@Resource
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-    
+
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}

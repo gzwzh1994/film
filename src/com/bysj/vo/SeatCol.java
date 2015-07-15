@@ -1,5 +1,9 @@
 package com.bysj.vo;
-
+/**
+ * 
+ * @author gzwzh1994
+ *
+ */
 public class SeatCol {
 	private Integer ColumnId;
 	private String ColumnNo;

@@ -18,101 +18,112 @@ import com.bysj.service.AdminManager;
 import com.bysj.vo.AdminInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("adminAction")
 @Scope("prototype")
 public class AdminAction extends ActionSupport implements
-ModelDriven<AdminInfo> {
+		ModelDriven<AdminInfo> {
 	private static final long serialVersionUID = 1L;
 	private AdminInfo admininfo = new AdminInfo();
 	private AdminManager adminManager;
 	private Admin admin;
-	
-	public String login() throws Exception{
+
+	public String login() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
-    	HttpSession session=request.getSession();
-    	Admin a=null;
-    	a=adminManager.findAdminByNameAndPassword(admininfo.getAdminname(), admininfo.getAdminpwd());
-    	if(null==a){
-    		request.setAttribute("errorTip","登录失败：帐号或密码错误");
-    		return "signin";
-    	}else{
-    		session.setAttribute("admin1", a.getAdminname());
-    		return "index";
-    	}
+		HttpSession session = request.getSession();
+		Admin a = null;
+		a = adminManager.findAdminByNameAndPassword(admininfo.getAdminname(),
+				admininfo.getAdminpwd());
+		if (null == a) {
+			request.setAttribute("errorTip", "登录失败：帐号或密码错误");
+			return "signin";
+		} else {
+			session.setAttribute("admin1", a.getAdminname());
+			return "index";
+		}
 	}
-	
-	public void checkname() throws IOException{
+
+	public void checkname() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
-		String adminname=request.getParameter("adminname");
-		Admin a=null;
-		a=adminManager.findAdminByName(adminname);
-		if(null==a){
+		String adminname = request.getParameter("adminname");
+		Admin a = null;
+		a = adminManager.findAdminByName(adminname);
+		if (null == a) {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("用户名不存在");
 			out.flush();
 			out.close();
-    	}
+		}
 	}
-	
-	public String manage(){
+
+	public String manage() {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		List<Admin> adminlist=adminManager.findAllList();
+		List<Admin> adminlist = adminManager.findAllList();
 		request.setAttribute("adminlist", adminlist);
 		return SUCCESS;
 	}
-	
-	public String add() throws Exception{
+
+	public String add() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String adminname=request.getParameter("adminname");
-		if(adminname==null || adminname=="" ){
-		}else{
-			String adminpwd=request.getParameter("pwd");
-			admin=new Admin();
-			Admin a=null;
-			a=adminManager.findAdminByName(adminname);
-			if(null==a){
+		String adminname = request.getParameter("adminname");
+		if (adminname == null || adminname == "") {
+		} else {
+			String adminpwd = request.getParameter("pwd");
+			admin = new Admin();
+			Admin a = null;
+			a = adminManager.findAdminByName(adminname);
+			if (null == a) {
 				admin.setAdminname(adminname);
 				admin.setAdminpwd(adminpwd);
 				adminManager.addAdmin(admin);
 				request.setAttribute("tip", "添加成功");
-			}else{
+			} else {
 				request.setAttribute("tip", "账号已存在添加失败");
 			}
 		}
 		return SUCCESS;
 	}
-	
-	public String update() throws Exception{
+
+	public String update() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String adminpwd=request.getParameter("pwd");
-		if(adminpwd==null || adminpwd==""){
+		String adminpwd = request.getParameter("pwd");
+		if (adminpwd == null || adminpwd == "") {
 			request.setAttribute("adminname", request.getParameter("adminname"));
-		}else{
-			Admin a=null;
-			a=adminManager.findAdminByNameAndPassword(request.getParameter("adminname"), request.getParameter("oldpwd"));
-			if(null==a){
-				request.setAttribute("adminname", request.getParameter("adminname"));
+		} else {
+			Admin a = null;
+			a = adminManager.findAdminByNameAndPassword(
+					request.getParameter("adminname"),
+					request.getParameter("oldpwd"));
+			if (null == a) {
+				request.setAttribute("adminname",
+						request.getParameter("adminname"));
 				request.setAttribute("tip", "旧密码输入错误修改失败");
-			}else{
+			} else {
 				a.setAdminpwd(adminpwd);
 				adminManager.updateAdmin(a);
 				request.setAttribute("tip", "修改成功");
-				request.setAttribute("adminname", request.getParameter("adminname"));
+				request.setAttribute("adminname",
+						request.getParameter("adminname"));
 			}
 		}
 		return SUCCESS;
 	}
-	
-	public String delete() throws Exception{
-		 HttpServletRequest request = ServletActionContext.getRequest();
-		 admin=new Admin();
-		 admin.setAdminid(Integer.parseInt(request.getParameter("adminid")));
-		 adminManager.deleteAdmin(admin);
-		 return "ok";
-	 }
-	
+
+	public String delete() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		admin = new Admin();
+		admin.setAdminid(Integer.parseInt(request.getParameter("adminid")));
+		adminManager.deleteAdmin(admin);
+		return "ok";
+	}
+
 	public AdminInfo getAdmininfo() {
 		return admininfo;
 	}
@@ -124,6 +135,7 @@ ModelDriven<AdminInfo> {
 	public AdminManager getAdminManager() {
 		return adminManager;
 	}
+
 	@Resource
 	public void setAdminManager(AdminManager adminManager) {
 		this.adminManager = adminManager;
@@ -136,7 +148,7 @@ ModelDriven<AdminInfo> {
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
 	}
-	
+
 	@Override
 	public AdminInfo getModel() {
 		return admininfo;

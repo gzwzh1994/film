@@ -1,7 +1,11 @@
 package com.bysj.vo;
 
 import java.text.SimpleDateFormat;
-
+/**
+ * 
+ * @author gzwzh1994
+ *
+ */
 public class MoiveInfo2 {
 	private Integer FilmNo;
 	private String CFilmName;

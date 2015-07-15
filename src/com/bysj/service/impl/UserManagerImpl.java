@@ -10,29 +10,35 @@ import com.bysj.dao.UserDao;
 import com.bysj.model.User;
 import com.bysj.service.UserManager;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("userManager")
 public class UserManagerImpl implements UserManager {
-    
+
 	private UserDao<User> userdao;
-	
+
 	@Override
 	public void addUser(User u) throws Exception {
-		userdao.save(u);      
+		userdao.save(u);
 	}
-	
+
 	@Override
 	public void deleteUser(User u) throws Exception {
-		userdao.delete(u);		
+		userdao.delete(u);
 	}
 
 	@Override
 	public void updateUser(User u) throws Exception {
-		userdao.saveOrUpdate(u);		
+		userdao.saveOrUpdate(u);
 	}
-	
+
 	public UserDao<User> getUserdao() {
 		return userdao;
 	}
+
 	@Resource
 	public void setUserdao(UserDao<User> userdao) {
 		this.userdao = userdao;
@@ -50,12 +56,14 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public User findUserByPhone(Long phone) {
-		return userdao.get("from User u where u.phone = ? ", new Object[] { phone });
+		return userdao.get("from User u where u.phone = ? ",
+				new Object[] { phone });
 	}
 
 	@Override
 	public User findUserByPhoneAndPassword(Long phone, String userpwd) {
-		return userdao.get("from User u where u.phone = ? and u.userpwd = ? ", new Object[] { phone, userpwd });
+		return userdao.get("from User u where u.phone = ? and u.userpwd = ? ",
+				new Object[] { phone, userpwd });
 	}
 
 	@Override
@@ -63,5 +71,4 @@ public class UserManagerImpl implements UserManager {
 		return userdao.executeHql(hql, param);
 	}
 
-	
 }

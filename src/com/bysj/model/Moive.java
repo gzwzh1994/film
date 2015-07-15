@@ -1,29 +1,34 @@
 package com.bysj.model;
 
-
 import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Entity
 public class Moive {
 	private Integer moiveid; // 电影编号
 	private String moivename; // 电影名称
-	private String moiveimage; //电影宣传图
+	private String moiveimage; // 电影宣传图
 	private Date releasetime; // 上映时间
 	private String director; // 导演
 	private String starring; // 主演
 	private String type; // 类型
 	private String nation; // 国家
-	private String version;//版本
+	private String version;// 版本
 	private String totaltime; // 片长
 	private String moiveplot; // 影片剧情
 	private String language;// 语言
-	private String score;  //评分
-    @Id
-    @GeneratedValue
+	private String score; // 评分
+
+	@Id
+	@GeneratedValue
 	public Integer getMoiveid() {
 		return moiveid;
 	}
@@ -137,5 +142,5 @@ public class Moive {
 		this.moiveid = moiveid;
 		this.moivename = moivename;
 	}
-    
+
 }

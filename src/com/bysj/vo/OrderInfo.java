@@ -1,7 +1,11 @@
 package com.bysj.vo;
 
 import java.text.SimpleDateFormat;
-
+/**
+ * 
+ * @author gzwzh1994
+ *
+ */
 public class OrderInfo {
 	private String imageadr;
 	private String moivename;

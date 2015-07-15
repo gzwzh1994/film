@@ -9,9 +9,16 @@ import org.springframework.stereotype.Component;
 import com.bysj.dao.HallDao;
 import com.bysj.model.Hall;
 import com.bysj.service.HallManager;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("hallManager")
 public class HallManagerImpl implements HallManager {
-private HallDao<Hall> halldao; 
+	private HallDao<Hall> halldao;
+
 	@Override
 	public void addHall(Hall hall) throws Exception {
 		halldao.save(hall);
@@ -36,7 +43,7 @@ private HallDao<Hall> halldao;
 	public List<Hall> findHallBy(String hql, Object[] param) {
 		return halldao.find(hql, param);
 	}
-	
+
 	@Override
 	public Hall findHall(String hql, Object[] param) {
 		return halldao.get(hql, param);
@@ -45,7 +52,8 @@ private HallDao<Hall> halldao;
 	public HallDao<Hall> getHalldao() {
 		return halldao;
 	}
-    @Resource
+
+	@Resource
 	public void setHalldao(HallDao<Hall> halldao) {
 		this.halldao = halldao;
 	}

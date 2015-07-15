@@ -11,13 +11,16 @@ import org.springframework.stereotype.Component;
 
 import com.bysj.dao.UserDao;
 
-
-
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("userDao")
 public class UserDaoImpl<T> implements UserDao<T> {
 
-	private SessionFactory sessionFactory; 
-	
+	private SessionFactory sessionFactory;
+
 	@Override
 	public void save(T o) {
 		this.getCurrentSession().save(o);
@@ -26,23 +29,24 @@ public class UserDaoImpl<T> implements UserDao<T> {
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
+
 	@Resource
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-    private Session getCurrentSession() {
+
+	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-
 	@Override
 	public void delete(T o) {
-		this.getCurrentSession().delete(o);		
+		this.getCurrentSession().delete(o);
 	}
 
 	@Override
 	public void saveOrUpdate(T o) {
-		this.getCurrentSession().saveOrUpdate(o);		
+		this.getCurrentSession().saveOrUpdate(o);
 	}
 
 	@Override
@@ -70,6 +74,7 @@ public class UserDaoImpl<T> implements UserDao<T> {
 			return null;
 		}
 	}
+
 	@Override
 	public Integer executeHql(String hql, Object[] param) {
 		Query q = this.getCurrentSession().createQuery(hql);

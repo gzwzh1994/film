@@ -10,9 +10,16 @@ import org.springframework.stereotype.Component;
 import com.bysj.dao.ScheduleDao;
 import com.bysj.model.Schedule;
 import com.bysj.service.ScheduleManager;
+
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Component("scheduleManager")
 public class ScheduleManagerImpl implements ScheduleManager {
 	private ScheduleDao<Schedule> scheduledao;
+
 	@Override
 	public void addSchedule(Schedule schedule) throws Exception {
 		scheduledao.save(schedule);
@@ -47,10 +54,11 @@ public class ScheduleManagerImpl implements ScheduleManager {
 	public Object getScheduleBy(String hql, Object[] param) {
 		return scheduledao.get(hql, param);
 	}
-	
+
 	public ScheduleDao<Schedule> getScheduledao() {
 		return scheduledao;
 	}
+
 	@Resource
 	public void setScheduledao(ScheduleDao<Schedule> scheduledao) {
 		this.scheduledao = scheduledao;

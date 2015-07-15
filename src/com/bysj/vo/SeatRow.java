@@ -1,7 +1,11 @@
 package com.bysj.vo;
 
 import java.util.List;
-
+/**
+ * 
+ * @author gzwzh1994
+ *
+ */
 public class SeatRow {
 	private String RowName;
 	private Integer RowNo;

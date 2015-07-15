@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.bysj.model.City;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 public interface CityManager {
 	public void addCity(City c) throws Exception;
 
@@ -12,7 +17,8 @@ public interface CityManager {
 	public void updateCity(City c) throws Exception;
 
 	public List<City> findAllList(String hql);
-	public List<City> findCityBy(String hql,Object[] param);
-	
-	public City findCity(String hql,Object[] param);
+
+	public List<City> findCityBy(String hql, Object[] param);
+
+	public City findCity(String hql, Object[] param);
 }

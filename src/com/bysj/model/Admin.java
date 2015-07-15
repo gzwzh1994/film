@@ -4,6 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * 
+ * @author gzwzh1994
+ * 
+ */
 @Entity
 public class Admin {
 	private Integer adminid; // 管理员id
